@@ -1,13 +1,13 @@
-const TableRow = ({ libro, eliminarHandler}) => {
+const TableRow = ({ libro: {name, author, year}, eliminarHandler}) => {
     return (
         <tr>
-            <td>{libro.name}</td>
-            <td>{libro.author}</td>
-            <td>{libro.year}</td>
+            <td>{name}</td>
+            <td>{author}</td>
+            <td>{year}</td>
             <td>
                 <button
                 onClick={() => {
-                    eliminarHandler(libro.name);
+                    eliminarHandler(name);
                 }}
                 >
                 Eliminar
