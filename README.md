@@ -22,3 +22,11 @@ Version final esperada React 18.2.0
 5. Modificar package.json con los script de vite
 
    Ejecutar con: npm run start 
+
+## Eliminacion de errores de consola
+* Se cambio la forma de el cargue de render en el cliente  
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+
+* En los label se cambio la propiedad for por htmlFor
+* Se agregaron thead y tbody a las tablas

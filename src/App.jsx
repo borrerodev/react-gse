@@ -1,6 +1,6 @@
 import "./App.css";
 import MovieList from "./components/movieList";
-import TableRow from "./components/tableRow";
+import TableRow, { TableRowMem } from "./components/tableRow";
 import { infoLibros } from "./data/info";
 import { useEffect, useState, version } from "react";
 
@@ -79,7 +79,7 @@ const App = () =>{
         </thead>
         <tbody>
         {libros?.map((element, index) => (
-            <TableRow key={index} libro={element} eliminarHandler={eliminar} />
+            <TableRowMem key={index} libro={element} eliminarHandler={eliminar} />
         ))}
         </tbody>
       </table>      

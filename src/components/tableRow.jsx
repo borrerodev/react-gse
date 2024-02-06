@@ -1,3 +1,5 @@
+import React from 'react';
+
 const TableRow = ({ libro: {name, author, year}, eliminarHandler}) => {
     return (
         <tr>
@@ -17,4 +19,7 @@ const TableRow = ({ libro: {name, author, year}, eliminarHandler}) => {
     );
 };
 
+const TableRowMem = React.memo(TableRow);
+
 export default TableRow;
+export { TableRowMem };
