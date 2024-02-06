@@ -1,22 +1,50 @@
 import "./App.css";
+import MovieList from "./components/movieList";
+import TableRow from "./components/tableRow";
 import { infoLibros } from "./data/info";
+import { useEffect, useState, version } from "react";
 
-function App() {
-  // Realizar metodo para eliminar personajes
-  const eliminar = () => {};
-
-  // Realizar metodo para agregar personajes
-  const agregar = () => {};
+const App = () =>{
+  const [libros, setLibros] = useState(infoLibros);
+  const [people, setPeople] = useState();
 
   // Documentacion API https://swapi.dev/
   // Obtener personajes o consumir algun otro API de acuerdo a la documentacion, mostar almenos 3 propiedades en una lista
-  const getPeople = () => {
-    fetch("https://swapi.dev/api/people/1", {}).then((x) => {
-      return x;
-    });
+  useEffect(() => {
+     fetch("https://swapi.dev/api/people")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.results)
+        setPeople(data.results);
+      }); 
+  }, []);
+  
+  // Realizar metodo para eliminar personajes
+  const eliminar = (name) => {
+    const nuevoLibros = libros.filter(lib => lib.name !== name);
+    setLibros(nuevoLibros);
   };
 
-  getPeople();
+  // Realizar metodo para agregar personajes
+  const agregar = (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const author = e.target.author.value;
+    const year = e.target.year.value;
+
+    setLibros([
+      ...libros,
+      {
+        name,
+        author,
+        year, 
+      },
+    ]);
+    
+  };
+
+
+
 
   return (
     <div className="App App-header">
@@ -24,16 +52,16 @@ function App() {
         {/* formulario para agregar informacion*/}
         <form onSubmit={agregar} style={{ textAlign: "center" }}>
           <div>
-            <label for="name">Nombre</label>
-            <input type="text" placeholder="name" />
+            <label htmlFor="name">Nombre</label>
+            <input id="name" type="text" placeholder="name" />
           </div>
           <div>
-            <label for="author">Autor</label>
-            <input type="text" placeholder="author" />
+            <label htmlFor="author">Autor</label>
+            <input id="author" type="text" placeholder="author" />
           </div>
           <div>
-            <label for="year">Año</label>
-            <input type="number" placeholder="year" />
+            <label htmlFor="year">Año</label>
+            <input id="year" type="number" placeholder="year" />
           </div>
           <button type="submit">Agregar</button>
         </form>
@@ -41,27 +69,26 @@ function App() {
 
       {/* Ejemplo de datos que se desean mostrar en una tabla */}
       <table>
-        <tr>
-          <th>Nombre</th>
-          <th>Autor</th>
-          <th>Año</th>
-          <th>Eliminar</th>
-        </tr>
-        {infoLibros.forEach((element) => (
+        <thead>
           <tr>
-            <td>{element.name}</td>
-            <td>{element.author}</td>
-            <td>{element.year}</td>
-            <button
-              onClick={() => {
-                eliminar();
-              }}
-            >
-              Eliminar
-            </button>
+            <th>Nombre</th>
+            <th>Autor</th>
+            <th>Año</th>
+            <th>Eliminar</th>
           </tr>
+        </thead>
+        <tbody>
+        {libros?.map((element, index) => (
+            <TableRow key={index} libro={element} eliminarHandler={eliminar} />
         ))}
-      </table>
+        </tbody>
+      </table>      
+      <h3>Datos de API</h3>
+      {/* Punto 4.Obtener datos de un API */}
+      {people 
+        ? <MovieList movies={people} />
+        : 'no hay datos'
+      } 
     </div>
   );
 }
