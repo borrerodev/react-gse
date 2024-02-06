@@ -14,4 +14,11 @@ Version final esperada React 18.2.0
 1. Actualizar paquetes: npm i react@latest react-dom@latest
 2. Modificar el archivo de render de cliente index usando react-dom/client
 
+##  Agregar Vite a proyecto CRA
+1. Eliminar los script de react con comando: npm uninstall react-scripts
+2. Agregar vite al proyecto: npm install vite @vitejs/plugin-react
+3. Mover index.html a la raiz y agregarle type="module"
+4. crear archivo en raiz vite.config.js (configuracion de vite como plugins y servidor)
+5. Modificar package.json con los script de vite
 
+   Ejecutar con: npm run start 
